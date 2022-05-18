@@ -165,6 +165,108 @@
     
     
     <article
+  id="post-NodeJs02"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/NodeJs02/"
+    >NodeJs02</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/NodeJs02/" class="article-date">
+  <time datetime="2022-05-18T07:20:26.000Z" itemprop="datePublished">2022-05-18</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>​		<strong>模块化</strong>是指解决一个复杂问题时，自顶向下逐层把系统划分成若干模块的过程。对于整个系统来说，模块是<u>可组合、分解和更换的单元</u>。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="编程领域的模块化"><a href="#编程领域的模块化" class="headerlink" title="编程领域的模块化"></a>编程领域的模块化</h3><p>​		编程领域中的模块化，就是遵守固定的规则，把一个大文件拆成独立并互相依赖的多个小模块。</p>
+<h3 id="模块化规范"><a href="#模块化规范" class="headerlink" title="模块化规范"></a>模块化规范</h3><p>​		模块化规范就是对代码进行模块化的拆分与组合时，需要遵守的那些规则。</p>
+<ul>
+<li>使用什么样的语法格式来引用模块</li>
+<li>在模块中使用什么样的语法格式向外暴露成员</li>
+</ul>
+<p><strong>模块化规范的好处：</strong>大家都遵守同样的模块化规范写代码，降低了沟通的成本，极大方便了各个模块之间的相互调用，利人利己。</p>
+<h2 id="Node-js中的模块化"><a href="#Node-js中的模块化" class="headerlink" title="Node.js中的模块化"></a>Node.js中的模块化</h2><h3 id="模块化分类"><a href="#模块化分类" class="headerlink" title="模块化分类"></a>模块化分类</h3><ul>
+<li><strong>内置模块</strong>（内置模块是由 Node.js 官方提供的，例如 fs、path、http 等）</li>
+<li><strong>自定义模块</strong>（用户创建的每个 .js 文件，都是自定义模块）</li>
+</ul>
+<p>06.m1.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;加载了06这个用户自定义模块&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>07.test.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在使用 require 加载用户自定义模块期间，可以省略 .js 的后缀名</span></span><br><span class="line"><span class="keyword">const</span> m1 = <span class="built_in">require</span>(<span class="string">&#x27;./06.m1&#x27;</span>);</span><br><span class="line"><span class="comment">//命令行输入node  .\07.test</span></span><br><span class="line"><span class="comment">//输出结果： 加载了06这个用户自定义模块</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>第三方模块</strong>（由第三方开发出来的模块，并非官方提供的内置模块，也不是用户创建的自定义模块，使用前需要先<strong>下载</strong>）</li>
+</ul>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="加载模块的-require-方法"><a href="#加载模块的-require-方法" class="headerlink" title="加载模块的 require() 方法"></a>加载模块的 require() 方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xx = <span class="built_in">require</span>(<span class="string">&#x27;xx&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="模块作用域"><a href="#模块作用域" class="headerlink" title="模块作用域"></a>模块作用域</h3><p>​		和函数作用域类似，在<u>自定义模块中定义的变量、方法等成员，只能在当前模块内被访问</u>，这种模块级别的访问限制，叫做模块作用域。</p>
+<p>优点：<strong>防止全局变量污染的问题</strong></p>
+<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/02_p1.jpg"></p>
+<h4 id="向外共享模块作用域中的成员"><a href="#向外共享模块作用域中的成员" class="headerlink" title="向外共享模块作用域中的成员"></a>向外共享模块作用域中的成员</h4><h5 id="1-module-对象"><a href="#1-module-对象" class="headerlink" title="1. module 对象"></a>1. module 对象</h5><p>​		在每个 .js 自定义模块中都有一个 module 对象，它里面存储了和当前模块有关的信息。</p>
+<h5 id="2-module-exports-对象"><a href="#2-module-exports-对象" class="headerlink" title="2. module.exports 对象"></a>2. module.exports 对象</h5><p>​		在自定义模块中，可以使用 module.exports 对象，将模块内的成员共享出去，供外界使用。<br>​		外界用 require() 方法导入自定义模块时，得到的就是 module.exports 所指向的对象。</p>
+<p>08.模块作用域.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> username = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayHello</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;大家好，我是&#x27;</span> + username)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    sayHello</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>09.test.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> custom = <span class="built_in">require</span>(<span class="string">&#x27;./08.模块作用域&#x27;</span>)</span><br><span class="line"><span class="comment">// var custom = require(&#x27;./08.模块作用域&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(custom.<span class="title function_">sayHello</span>())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>若不使用 module.exports&#x3D;{…}，输出结果为空</li>
+<li>若使用，输出结果为：大家好，我是张三</li>
+</ul>
+<p>​		正如前文所提及的防止变量污染，我个人的理解就是防止外界加载模块后所引用的方法并非当前模块所想向外界公开的；或者是防止当前模块有多个类似的变量和方法被误会使用。</p>
+<h5 id="3-exports-对象"><a href="#3-exports-对象" class="headerlink" title="3. exports 对象"></a>3. exports 对象</h5><p>​		由于 module.exports 单词写起来比较复杂，为了简化向外共享成员的代码，Node 提供了 exports 对象。默认情况下，exports 和 module.exports 指向同一个对象。最终共享的结果，还是以 module.exports 指向的对象为准。</p>
+<h4 id="共享成员注意点"><a href="#共享成员注意点" class="headerlink" title="共享成员注意点"></a>共享成员注意点</h4><p>​		使用 require() 方法导入模块时，导入的结果，永远以 <strong>module.exports 指向的对象为准</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/02_p2.jpg"></p>
+<h4 id="exports-和-module-exports-的使用误区"><a href="#exports-和-module-exports-的使用误区" class="headerlink" title="exports 和 module.exports 的使用误区"></a>exports 和 module.exports 的使用误区</h4><p><strong>注意</strong>：为了防止混乱，建议大家不要在同一个模块中同时使用 exports 和 module.exports！！！！</p>
+<h4 id="Node-js-中的模块化规范"><a href="#Node-js-中的模块化规范" class="headerlink" title="Node.js 中的模块化规范"></a>Node.js 中的模块化规范</h4><p>Node.js 遵循了 CommonJS 模块化规范，CommonJS 规定了<strong>模块的特性</strong>和各模块之间如何相互依赖。</p>
+<p>CommonJS 规定：</p>
+<ol>
+<li>每个模块内部，module 变量代表当前模块。</li>
+<li>module 变量是一个对象，它的 exports 属性（即 module.exports）是对外的接口。</li>
+<li>加载某个模块，其实是加载该模块的 module.exports 属性。require() 方法用于加载模块。</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-NodeJs"
   class="article article-type-post"
   itemscope
@@ -201,16 +303,16 @@
 <li>IE浏览器                &#x3D;&#x3D;&gt;    Chakra（查克拉）</li>
 <li>….</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/nodejs_01_p1.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/01_p1.jpg"></p>
 <p>2.为什么 JavaScript 可以操纵 DOM 和 BOM？</p>
 <p>​	每个浏览器都内置了 DOM、BOM 这样的 API 函数，因此，浏览器中的 JavaScipt 才可以调用它们。</p>
-<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/p2.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/01_p2.jpg"></p>
 <p>3.总结</p>
 <ol>
 <li>V8引擎负责解析和执行 JavaScript 代码。</li>
 <li>内置 API 是由<strong>运行环境</strong>提供的特殊接口，<strong>只能再所属的运行环境中被调用。</strong>（ps：<strong>运行环境</strong>是指<strong>代码正常运行所需的必要环境</strong>）</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/p3.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/01_p3.jpg"></p>
 <h4 id="Node-js简介"><a href="#Node-js简介" class="headerlink" title="Node.js简介"></a>Node.js简介</h4><p>1.什么是Node.js?</p>
 <p>​	Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine.<br>​	<u>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。</u></p>
 <p>2.Node.js 中的 JavaScript 运行环境</p>
@@ -231,7 +333,7 @@
 <p>4.Node.js学习路径</p>
 <p>​	<strong>JavaScript 基础语法 + Node.js 内置 API 模块（fs、path、http等）+ 第三方 API 模块（express、mysql 等）</strong></p>
 <h4 id="Node-js环境的安装"><a href="#Node-js环境的安装" class="headerlink" title="Node.js环境的安装"></a>Node.js环境的安装</h4><p>​	Node.js 的官网地址： <a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a></p>
-<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/p4.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/47head/blog-imagebed/main/01_p4.jpg"></p>
 <ol>
 <li><strong>LTS 为长期稳定版</strong>，对于追求稳定性的企业级项目来说，推荐安装 LTS 版本的 Node.js。</li>
 <li><strong>Current 为新特性尝鲜版</strong>，对热衷于尝试新特性的用户来说，推荐安装 Current 版本的 Node.js。但是，Current 版本中可能存在隐藏的 Bug 或安全性漏洞，因此不推荐在企业级项目中使用 Current 版本的 Node.js。</li>
@@ -347,65 +449,6 @@
 <h4 id="时钟案例"><a href="#时钟案例" class="headerlink" title="时钟案例"></a>时钟案例</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入模块</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建web服务器</span></span><br><span class="line"><span class="keyword">const</span> server = http.<span class="title function_">createServer</span>()</span><br><span class="line"><span class="comment">// 监听web服务器的request事件</span></span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>, <span class="function">(<span class="params">req, res</span>)=&gt;</span>&#123;  </span><br><span class="line">    <span class="comment">// 获取客户端请求的url地址</span></span><br><span class="line">        <span class="comment">// /clock/index.html</span></span><br><span class="line">        <span class="comment">// /clock/index.css</span></span><br><span class="line">        <span class="comment">// /clock/index.js</span></span><br><span class="line">    <span class="keyword">const</span> url = req.<span class="property">url</span></span><br><span class="line">    <span class="comment">// 把请求的url地址映射为具体文件的存放地址</span></span><br><span class="line">    <span class="comment">// const fpath = path.join(__dirname, url)</span></span><br><span class="line">    <span class="keyword">let</span> fpath = <span class="string">&#x27;&#x27;</span>                <span class="comment">// path.join(__dirname, url)</span></span><br><span class="line">    <span class="keyword">if</span>(url === <span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">        fpath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;./clock/index.html&#x27;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// /index.html</span></span><br><span class="line">        <span class="comment">// /index.css</span></span><br><span class="line">        <span class="comment">// /index.js</span></span><br><span class="line">        fpath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;/clock&#x27;</span>, url)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据“映射”过来的文件路径读取文件的内容</span></span><br><span class="line">    fs.<span class="title function_">readFile</span>(fpath, <span class="string">&#x27;utf-8&#x27;</span>, <span class="function">(<span class="params">err, dataStr</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 读取失败，向客户端响应固定的错误消息</span></span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            res.<span class="title function_">end</span>(<span class="string">&#x27;404 Not Found!&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 读取成功，将读取成功的内容响应给客户端</span></span><br><span class="line">        <span class="comment">// res.setHeader(&#x27;Content-Type&#x27;, &#x27;text/html; charset=utf-8&#x27;)</span></span><br><span class="line">        res.<span class="title function_">end</span>(dataStr)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 启动服务器</span></span><br><span class="line">server.<span class="title function_">listen</span>(<span class="number">80</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;server running at http://127.0.0.1&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
-
-
-
-
-
-<h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>​		<strong>模块化</strong>是指解决一个复杂问题时，自顶向下逐层把系统划分成若干模块的过程。对于整个系统来说，模块是<u>可组合、分解和更换的单元</u>。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="编程领域的模块化"><a href="#编程领域的模块化" class="headerlink" title="编程领域的模块化"></a>编程领域的模块化</h3><p>​		编程领域中的模块化，就是遵守固定的规则，把一个大文件拆成独立并互相依赖的多个小模块。</p>
-<h3 id="模块化规范"><a href="#模块化规范" class="headerlink" title="模块化规范"></a>模块化规范</h3><p>​		模块化规范就是对代码进行模块化的拆分与组合时，需要遵守的那些规则。</p>
-<ul>
-<li>使用什么样的语法格式来引用模块</li>
-<li>在模块中使用什么样的语法格式向外暴露成员</li>
-</ul>
-<p><strong>模块化规范的好处：</strong>大家都遵守同样的模块化规范写代码，降低了沟通的成本，极大方便了各个模块之间的相互调用，利人利己。</p>
-<h2 id="Node-js中的模块化"><a href="#Node-js中的模块化" class="headerlink" title="Node.js中的模块化"></a>Node.js中的模块化</h2><h3 id="模块化分类"><a href="#模块化分类" class="headerlink" title="模块化分类"></a>模块化分类</h3><ul>
-<li><strong>内置模块</strong>（内置模块是由 Node.js 官方提供的，例如 fs、path、http 等）</li>
-<li><strong>自定义模块</strong>（用户创建的每个 .js 文件，都是自定义模块）</li>
-</ul>
-<p>06.m1.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;加载了06这个用户自定义模块&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>07.test.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在使用 require 加载用户自定义模块期间，可以省略 .js 的后缀名</span></span><br><span class="line"><span class="keyword">const</span> m1 = <span class="built_in">require</span>(<span class="string">&#x27;./06.m1&#x27;</span>);</span><br><span class="line"><span class="comment">//命令行输入node  .\07.test</span></span><br><span class="line"><span class="comment">//输出结果： 加载了06这个用户自定义模块</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><strong>第三方模块</strong>（由第三方开发出来的模块，并非官方提供的内置模块，也不是用户创建的自定义模块，使用前需要先<strong>下载</strong>）</li>
-</ul>
-<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="加载模块的-require-方法"><a href="#加载模块的-require-方法" class="headerlink" title="加载模块的 require() 方法"></a>加载模块的 require() 方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xx = <span class="built_in">require</span>(<span class="string">&#x27;xx&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="模块作用域"><a href="#模块作用域" class="headerlink" title="模块作用域"></a>模块作用域</h3><p>​		和函数作用域类似，在<u>自定义模块中定义的变量、方法等成员，只能在当前模块内被访问</u>，这种模块级别的访问限制，叫做模块作用域。</p>
-<p>优点：<strong>防止全局变量污染的问题</strong></p>
-<p><img src="C:\Users\Apple33\AppData\Roaming\Typora\typora-user-images\image-20220518010131902.png" alt="image-20220518010131902"></p>
-<h4 id="向外共享模块作用域中的成员"><a href="#向外共享模块作用域中的成员" class="headerlink" title="向外共享模块作用域中的成员"></a>向外共享模块作用域中的成员</h4><h5 id="1-module-对象"><a href="#1-module-对象" class="headerlink" title="1. module 对象"></a>1. module 对象</h5><p>​		在每个 .js 自定义模块中都有一个 module 对象，它里面存储了和当前模块有关的信息。</p>
-<h5 id="2-module-exports-对象"><a href="#2-module-exports-对象" class="headerlink" title="2. module.exports 对象"></a>2. module.exports 对象</h5><p>​		在自定义模块中，可以使用 module.exports 对象，将模块内的成员共享出去，供外界使用。<br>​		外界用 require() 方法导入自定义模块时，得到的就是 module.exports 所指向的对象。</p>
-<p>08.模块作用域.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> username = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayHello</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;大家好，我是&#x27;</span> + username)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    sayHello</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>09.test.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> custom = <span class="built_in">require</span>(<span class="string">&#x27;./08.模块作用域&#x27;</span>)</span><br><span class="line"><span class="comment">// var custom = require(&#x27;./08.模块作用域&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(custom.<span class="title function_">sayHello</span>())</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>若不使用 module.exports&#x3D;{…}，输出结果为空</li>
-<li>若使用，输出结果为：大家好，我是张三</li>
-</ul>
-<p>​		正如前文所提及的防止变量污染，我个人的理解就是防止外界加载模块后所引用的方法并非当前模块所想向外界公开的；或者是防止当前模块有多个类似的变量和方法被误会使用。</p>
-<h5 id="3-exports-对象"><a href="#3-exports-对象" class="headerlink" title="3. exports 对象"></a>3. exports 对象</h5><p>​		由于 module.exports 单词写起来比较复杂，为了简化向外共享成员的代码，Node 提供了 exports 对象。默认情况下，exports 和 module.exports 指向同一个对象。最终共享的结果，还是以 module.exports 指向的对象为准。</p>
-<h4 id="共享成员注意点"><a href="#共享成员注意点" class="headerlink" title="共享成员注意点"></a>共享成员注意点</h4><p>​		使用 require() 方法导入模块时，导入的结果，永远以 <strong>module.exports 指向的对象为准</strong>。</p>
-<p><img src="C:\Users\Apple33\AppData\Roaming\Typora\typora-user-images\image-20220518010105756.png" alt="image-20220518010105756"></p>
-<h4 id="exports-和-module-exports-的使用误区"><a href="#exports-和-module-exports-的使用误区" class="headerlink" title="exports 和 module.exports 的使用误区"></a>exports 和 module.exports 的使用误区</h4><p><strong>注意</strong>：为了防止混乱，建议大家不要在同一个模块中同时使用 exports 和 module.exports！！！！</p>
-<h4 id="Node-js-中的模块化规范"><a href="#Node-js-中的模块化规范" class="headerlink" title="Node.js 中的模块化规范"></a>Node.js 中的模块化规范</h4><p>Node.js 遵循了 CommonJS 模块化规范，CommonJS 规定了<strong>模块的特性</strong>和各模块之间如何相互依赖。</p>
-<p>CommonJS 规定：</p>
-<ol>
-<li>每个模块内部，module 变量代表当前模块。</li>
-<li>module 变量是一个对象，它的 exports 属性（即 module.exports）是对外的接口。</li>
-<li>加载某个模块，其实是加载该模块的 module.exports 属性。require() 方法用于加载模块。</li>
-</ol>
  
       <!-- reward -->
       
